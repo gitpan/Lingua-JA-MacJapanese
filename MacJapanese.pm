@@ -8,7 +8,7 @@ use vars qw($VERSION @ISA @EXPORT @EXPORT_OK %EXPORT_TAGS);
 require Exporter;
 require DynaLoader;
 
-$VERSION = '0.01';
+$VERSION = '0.02';
 @ISA = qw(Exporter DynaLoader);
 @EXPORT = qw(decodeMacJapanese encodeMacJapanese);
 @EXPORT_OK = qw(decode encode);
@@ -156,7 +156,12 @@ and/or modify it under the same terms as Perl itself.
 =item Map (external version) from Mac OS Japanese encoding
 to Unicode 2.1 through Unicode 3.2 (version: b4,c1 2002-Dec-19)
 
-http://www.unicode.org/Public/MAPPINGS/VENDORS/APPLE/JAPANESE.TXT
+L<http://www.unicode.org/Public/MAPPINGS/VENDORS/APPLE/JAPANESE.TXT>
+
+=item Registry (external version) of Apple use of Unicode corporate-zone
+characters (version: b4,c1 2002-Dec-19)
+
+L<http://www.unicode.org/Public/MAPPINGS/VENDORS/APPLE/CORPCHAR.TXT>
 
 =back
 

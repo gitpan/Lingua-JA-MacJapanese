@@ -11,8 +11,6 @@
 #define ToMbTbl 	to_macja
 #define ToMbTblC	to_macja_contra
 
-#define IsMbSGL(i)   (0x00<=(i) && (i)<=0x80 || 0xA0<=(i) && (i)<=0xDF \
-			|| 0xFD<=(i) && (i)<=0xFF)
 #define IsMbLED(i)   (0x81<=(i) && (i)<=0x9F || 0xE0<=(i) && (i)<=0xFC)
 #define IsMbTRL(i)   (0x40<=(i) && (i)<=0x7E || 0x80<=(i) && (i)<=0xFC)
 
@@ -94,7 +92,7 @@ decode(...)
     SvUTF8_on(dst);
 
     for (p = s; p < e; p += mblen) {
-	mblen = IsMbSGL(*p) ? 1 : IsMbLED(*p) && IsMbTRL(p[1]) ? 2 : 1;
+	mblen = 2 <= (e - p) && IsMbLED(*p) && IsMbTRL(p[1]) ? 2 : 1;
 
 	if (mblen == 2 && Is_SJIS_UDC(*(p))) {
 	    uv = SJIS_PUA_BASE + 188 * (*(p) - 0xF0) +

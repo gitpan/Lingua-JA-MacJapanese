@@ -4,6 +4,7 @@ README
 MANIFEST
 MacJapanese.pm
 MacJapanese.xs
+addition.map
 japanese.map
 mkheader
 t/gaiji.t

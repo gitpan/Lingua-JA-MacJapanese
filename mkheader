@@ -10,6 +10,7 @@ use strict;
 use warnings;
 
 my $MapFile  = "japanese.map";
+my $AddFile  = "addition.map";
 my $EncName  = 'macja';
 
 ###################
@@ -35,35 +36,39 @@ sub split_into_char {
 
 ###################
 
-open IN, "<$MapFile" or die "$MapFile $!";
-binmode IN;
+for my $f ($AddFile, $MapFile) {
+    open IN, "<$f" or die "$f $!";
+    binmode IN;
 
-while (<IN>) {
-    next if /^#/;
-    next if /^$/;
+    while (<IN>) {
+	next if /^#/;
+	next if /^$/;
 
-    my @t = split;
-    my $mc = hex $t[0];
-    next if ! $t[1];
+	my @t = split;
+	my $mc = hex $t[0];
+	next if ! $t[1];
 
-    my @uv = map hex, split /\+/, $t[1];
+	my @uv = map hex, split /\+/, $t[1];
 
-    for (@uv) {
-	$_ > 0xffff and die "$_ > 0xffff in $_";
-    }
+	for my $u (@uv) {
+	    $u > 0xffff and die "$u > 0xffff in $u";
+	}
 
-    my($lb,$tb) = unpack('CC', pack 'n', $mc);
-    $FmMbc{$lb}{$tb} = [ @uv ];
+	if ($f eq $MapFile) {
+	    my($lb,$tb) = unpack('CC', pack 'n', $mc);
+	    $FmMbc{$lb}{$tb} = [ @uv ];
+	}
 
-    if (@uv == 1) {
-	my($row,$cel) = unpack('CC', pack 'n', $uv[0]);
-	$ToMbc{$row}{$cel} = $mc;
-    }
-    else {
-	my $base = shift @uv;
-	my($row,$cel) = unpack('CC', pack 'n', $base);
-	$ToMbcC{$row}{$cel} ++;
-	push @{ $Contra{$base} }, [ $mc, split_into_char(@uv) ];
+	if (@uv == 1) {
+	    my($row,$cel) = unpack('CC', pack 'n', $uv[0]);
+	    $ToMbc{$row}{$cel} = $mc;
+	}
+	else {
+	    my $base = shift @uv;
+	    my($row,$cel) = unpack('CC', pack 'n', $base);
+	    $ToMbcC{$row}{$cel} ++;
+	    push @{ $Contra{$base} }, [ $mc, split_into_char(@uv) ];
+	}
     }
 }
 

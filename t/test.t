@@ -1,5 +1,5 @@
 
-BEGIN { $| = 1; print "1..33\n"; }
+BEGIN { $| = 1; print "1..34\n"; }
 END {print "not ok 1\n" unless $loaded;}
 
 use Lingua::JA::MacJapanese;
@@ -85,6 +85,9 @@ print "\x{30F6}\x{F87E}" eq decodeMacJapanese("\xED\x96")
    ? "ok" : "not ok", " ", ++$loaded, "\n";
 
 print "\x85\x91" eq encodeMacJapanese("\x{F860}0.")
+   ? "ok" : "not ok", " ", ++$loaded, "\n";
+
+print "\x85\x91" eq encodeMacJapanese("\x{F8A1}") # deprecated
    ? "ok" : "not ok", " ", ++$loaded, "\n";
 
 print "\x{F860}0." eq decodeMacJapanese("\x85\x91")
