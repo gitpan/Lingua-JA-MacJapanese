@@ -1,0 +1,10 @@
+Changes
+Makefile.PL
+README
+MANIFEST
+MacJapanese.pm
+MacJapanese.xs
+japanese.map
+mkheader
+t/gaiji.t
+t/test.t
