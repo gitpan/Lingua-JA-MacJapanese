@@ -42,7 +42,7 @@ for my $f ($AddFile, $MapFile) {
 
     while (<IN>) {
 	next if /^#/;
-	next if /^$/;
+	next if /^\s*$/;
 
 	my @t = split;
 	my $mc = hex $t[0];
@@ -70,6 +70,7 @@ for my $f ($AddFile, $MapFile) {
 	    push @{ $Contra{$base} }, [ $mc, split_into_char(@uv) ];
 	}
     }
+    close IN or die "$f can't be closed.\n";
 }
 
 ###################
@@ -99,7 +100,7 @@ for (my $lb = 0; $lb < 256; $lb++) {
 }
 print FM "};\n\n";
 
-close FM;
+close FM or die "$FmH_File can't be closed.\n";
 
 ###################
 
@@ -155,7 +156,7 @@ foreach my $suffix ("", "_contra") {
     print TO "};\n\n\n";
 }
 
-close TO;
+close TO or die "$ToH_File can't be closed.\n";
 
 1;
 __END__

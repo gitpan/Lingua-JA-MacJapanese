@@ -1,9 +1,10 @@
-Lingua::JA::MacJapanese version 0.02
+Lingua::JA::MacJapanese version 0.03
 ================
 
 NAME
 
-Lingua::JA::MacJapanese - transcoding between Mac OS Japanese and Unicode
+Lingua::JA::MacJapanese - transcoding between Mac OS Japanese encoding
+and Unicode
 
 SYNOPSIS
 
@@ -33,14 +34,11 @@ INSTALLATION
     make test
     make install
 
-COPYRIGHT AND LICENCE
+COPYRIGHT AND LICENSE
 
-    Tomoyuki SADAHIRO
+SADAHIRO Tomoyuki <SADAHIRO@cpan.org>
 
-        bqw10602@nifty.com
-        http://homepage1.nifty.com/nomenclator/perl/
+Copyright(C) 2003-2005, SADAHIRO Tomoyuki. Japan. All rights reserved.
 
-    Copyright(C) 2003-2003, SADAHIRO Tomoyuki. Japan. All rights reserved.
-
-    This module is free software; you can redistribute it
-    and/or modify it under the same terms as Perl itself.
+This module is free software; you can redistribute it and/or
+modify it under the same terms as Perl itself.

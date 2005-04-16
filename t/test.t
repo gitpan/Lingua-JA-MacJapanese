@@ -1,75 +1,120 @@
 
-BEGIN { $| = 1; print "1..34\n"; }
+BEGIN { $| = 1; print "1..50\n"; }
 END {print "not ok 1\n" unless $loaded;}
 
 use Lingua::JA::MacJapanese;
 $loaded = 1;
 print "ok 1\n";
 
-####
+### EMPTY STRING: 2..5
 
 print "" eq Lingua::JA::MacJapanese::encode("")
-   && "" eq Lingua::JA::MacJapanese::decode("")
    ? "ok" : "not ok", " ", ++$loaded, "\n";
 
-my $qperl = "\x50\x65\x72\x6C";
-print $qperl eq Lingua::JA::MacJapanese::encode("Perl")
-   && "Perl" eq Lingua::JA::MacJapanese::decode($qperl)
-   ? "ok" : "not ok", " ", ++$loaded, "\n";
-
-print "\x81\x40" eq Lingua::JA::MacJapanese::encode("\x{3000}")
-   && "\x{3000}" eq Lingua::JA::MacJapanese::decode("\x81\x40")
+print "" eq Lingua::JA::MacJapanese::decode("")
    ? "ok" : "not ok", " ", ++$loaded, "\n";
 
 print "" eq encodeMacJapanese("")
-   && "" eq decodeMacJapanese("")
+   ? "ok" : "not ok", " ", ++$loaded, "\n";
+
+print "" eq decodeMacJapanese("")
+   ? "ok" : "not ok", " ", ++$loaded, "\n";
+
+### Perl: 6..9
+
+my $qperl = "\x50\x65\x72\x6C";
+print $qperl eq Lingua::JA::MacJapanese::encode("Perl")
+   ? "ok" : "not ok", " ", ++$loaded, "\n";
+
+print "Perl" eq Lingua::JA::MacJapanese::decode($qperl)
    ? "ok" : "not ok", " ", ++$loaded, "\n";
 
 my $perl = "\x50\x65\x72\x6C";
 print $perl  eq encodeMacJapanese("Perl")
-   && "Perl" eq decodeMacJapanese($perl)
    ? "ok" : "not ok", " ", ++$loaded, "\n";
+
+print "Perl" eq decodeMacJapanese($perl)
+   ? "ok" : "not ok", " ", ++$loaded, "\n";
+
+### CONTROL and ASCII: 10..17
 
 # NULL must be always "\0" (otherwise can't be supported.)
 print "\0" eq encodeMacJapanese("\0")
-   && "\0" eq decodeMacJapanese("\0")
+   ? "ok" : "not ok", " ", ++$loaded, "\n";
+
+print "\0" eq decodeMacJapanese("\0")
    ? "ok" : "not ok", " ", ++$loaded, "\n";
 
 my $del = pack('U', 0x7F);
 print "\x7F" eq encodeMacJapanese($del)
-   &&  $del  eq decodeMacJapanese("\x7F")
+   ? "ok" : "not ok", " ", ++$loaded, "\n";
+
+print  $del  eq decodeMacJapanese("\x7F")
+   ? "ok" : "not ok", " ", ++$loaded, "\n";
+
+my $digit = "\x30\x31\x32\x33\x34\x35\x36\x37\x38\x39";
+print $digit eq encodeMacJapanese("0123456789")
+   ? "ok" : "not ok", " ", ++$loaded, "\n";
+
+print "0123456789" eq decodeMacJapanese($digit)
    ? "ok" : "not ok", " ", ++$loaded, "\n";
 
 my $asciiC = pack 'C*', 1..91, 0x5C, 93..126;
 my $asciiU = pack 'U*', 1..91, 0xA5, 93..126;
 
 print $asciiC eq encodeMacJapanese($asciiU)
-   && $asciiU eq decodeMacJapanese($asciiC)
    ? "ok" : "not ok", " ", ++$loaded, "\n";
 
-my $digit = "\x30\x31\x32\x33\x34\x35\x36\x37\x38\x39";
-print $digit eq encodeMacJapanese("0123456789")
-   && "0123456789" eq decodeMacJapanese($digit)
+print $asciiU eq decodeMacJapanese($asciiC)
    ? "ok" : "not ok", " ", ++$loaded, "\n";
 
-print "\x80" eq encodeMacJapanese("\\")
-   && "\\" eq decodeMacJapanese("\x80")
+### IDSP: 18..23
+
+print "\x81\x40" eq Lingua::JA::MacJapanese::encode("\x{3000}")
    ? "ok" : "not ok", " ", ++$loaded, "\n";
 
-print "\xB1" eq encodeMacJapanese("\x{FF71}")
-   && "\x{FF71}" eq decodeMacJapanese("\xB1")
+print "\x{3000}" eq Lingua::JA::MacJapanese::decode("\x81\x40")
    ? "ok" : "not ok", " ", ++$loaded, "\n";
 
 print "\x81\x40" eq encodeMacJapanese("\x{3000}")
-   && "\x{3000}" eq decodeMacJapanese("\x81\x40")
+   ? "ok" : "not ok", " ", ++$loaded, "\n";
+
+print "\x{3000}" eq decodeMacJapanese("\x81\x40")
+   ? "ok" : "not ok", " ", ++$loaded, "\n";
+
+my $sb_idspC = pack 'C*', 0..91, 129,64, 0x5C, 129,64, 93..127;
+my $sb_idspU = pack 'U*', 0..91, 0x3000, 0xA5, 0x3000, 93..127;
+
+print $sb_idspC eq encodeMacJapanese($sb_idspU)
+   ? "ok" : "not ok", " ", ++$loaded, "\n";
+
+print $sb_idspU eq decodeMacJapanese($sb_idspC)
+   ? "ok" : "not ok", " ", ++$loaded, "\n";
+
+### MISC. CHARACTERS: 24..40
+
+print "\x80" eq encodeMacJapanese("\\")
+   ? "ok" : "not ok", " ", ++$loaded, "\n";
+
+print "\\" eq decodeMacJapanese("\x80")
+   ? "ok" : "not ok", " ", ++$loaded, "\n";
+
+print "\xB1" eq encodeMacJapanese("\x{FF71}")
+   ? "ok" : "not ok", " ", ++$loaded, "\n";
+
+print "\x{FF71}" eq decodeMacJapanese("\xB1")
    ? "ok" : "not ok", " ", ++$loaded, "\n";
 
 print "\x82\xA0" eq encodeMacJapanese("\x{3042}")
-   && "\x{3042}" eq decodeMacJapanese("\x82\xA0")
+   ? "ok" : "not ok", " ", ++$loaded, "\n";
+
+print "\x{3042}" eq decodeMacJapanese("\x82\xA0")
    ? "ok" : "not ok", " ", ++$loaded, "\n";
 
 print "\xEA\xA4" eq encodeMacJapanese("\x{7199}")
-   && "\x{7199}" eq decodeMacJapanese("\xEA\xA4")
+   ? "ok" : "not ok", " ", ++$loaded, "\n";
+
+print "\x{7199}" eq decodeMacJapanese("\xEA\xA4")
    ? "ok" : "not ok", " ", ++$loaded, "\n";
 
 print "\xFF" eq encodeMacJapanese("\x{2026}\x{F87F}")
@@ -98,6 +143,8 @@ print "\x41\x85\xAB\x49" eq encodeMacJapanese("A\x{F862}XIIII")
 
 print "A\x{F862}XIIII" eq decodeMacJapanese("\x41\x85\xAB\x49")
    ? "ok" : "not ok", " ", ++$loaded, "\n";
+
+### CALLBACK: 41..50
 
 # On EBCDIC platform, '&' is not equal to "\x26", etc.
 sub hexNCR { sprintf("\x26\x23\x78%x\x3B", shift) } # hexadecimal NCR

@@ -2,8 +2,7 @@
 #
 # http://www.unicode.org/Public/MAPPINGS/VENDORS/APPLE/JAPANESE.TXT
 # Map (external version) from Mac OS Japanese encoding
-#    to Unicode 2.1 through Unicode 3.2
-# version: b4,c1 2002-Dec-19
+# to Unicode 2.1 and later (version: c02 2005-Apr-05)
 #
 0x00	0x0000
 0x01	0x0001

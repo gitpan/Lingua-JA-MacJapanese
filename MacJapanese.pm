@@ -8,7 +8,7 @@ use vars qw($VERSION @ISA @EXPORT @EXPORT_OK %EXPORT_TAGS);
 require Exporter;
 require DynaLoader;
 
-$VERSION = '0.02';
+$VERSION = '0.03';
 @ISA = qw(Exporter DynaLoader);
 @EXPORT = qw(decodeMacJapanese encodeMacJapanese);
 @EXPORT_OK = qw(decode encode);
@@ -19,7 +19,8 @@ __END__
 
 =head1 NAME
 
-Lingua::JA::MacJapanese - transcoding between Mac OS Japanese and Unicode
+Lingua::JA::MacJapanese - transcoding between Mac OS Japanese encoding
+and Unicode
 
 =head1 SYNOPSIS
 
@@ -42,7 +43,7 @@ Lingua::JA::MacJapanese - transcoding between Mac OS Japanese and Unicode
     $octet = Lingua::JA::MacJapanese::encode($wchar);
 
    # $wchar : a string in Perl's Unicode format
-   # $octet : a string in Mac OS Japanese
+   # $octet : a string in Mac OS Japanese encoding
 
 =head1 DESCRIPTION
 
@@ -52,16 +53,15 @@ This module provides decoding from/encoding to Mac OS Japanese encoding
 In order to ensure roundtrip mapping, MacJapanese encoding
 has some characters with mapping from a single MacJapanese character
 to a sequence of Unicode characters and vice versa.
-Such characters includes C<0x85AB> (MacJapanese) from/to
+Such characters include C<0x85AB> (MacJapanese) from/to
 C<0xF862+0x0058+0x0049+0x0049+0x0049> (Unicode)
 for C<"Roman numeral thirteen">.
 
-This module provides functions to transcode between MacJapanese
-encoding and Unicode, without information loss
-for every MacJapanese character.
+This module provides functions to transcode between MacJapanese and
+Unicode, without information loss for every MacJapanese character.
 
-Shift-JIS Gaiji (user defined characters) [0xF040 to 0xFCFC (rows 95 to 120)]
-are mapped to Unicode's PUA [0xE000 to 0xE98B] (total 2444 characters).
+Shift-JIS has 2444 User Defined Characters (a.k.a. Gaiji) [0xF040 to 0xFCFC
+(rows 95 to 120)], which are mapped to Unicode's PUA [0xE000 to 0xE98B].
 
 =head2 Functions
 
@@ -140,26 +140,24 @@ Please let him know if you find something wrong.
 
 =head1 AUTHOR
 
-  SADAHIRO Tomoyuki  SADAHIRO@cpan.org
+SADAHIRO Tomoyuki <SADAHIRO@cpan.org>
 
-  http://homepage1.nifty.com/nomenclator/perl/
+Copyright(C) 2003-2005, SADAHIRO Tomoyuki. Japan. All rights reserved.
 
-  Copyright(C) 2003-2003, SADAHIRO Tomoyuki. Japan. All rights reserved.
-
-This module is free software; you can redistribute it
-and/or modify it under the same terms as Perl itself.
+This module is free software; you can redistribute it and/or
+modify it under the same terms as Perl itself.
 
 =head1 SEE ALSO
 
 =over 4
 
 =item Map (external version) from Mac OS Japanese encoding
-to Unicode 2.1 through Unicode 3.2 (version: b4,c1 2002-Dec-19)
+to Unicode 2.1 and later (version: c02 2005-Apr-05)
 
 L<http://www.unicode.org/Public/MAPPINGS/VENDORS/APPLE/JAPANESE.TXT>
 
 =item Registry (external version) of Apple use of Unicode corporate-zone
-characters (version: b4,c1 2002-Dec-19)
+characters (version: c03 2005-Apr-04)
 
 L<http://www.unicode.org/Public/MAPPINGS/VENDORS/APPLE/CORPCHAR.TXT>
 

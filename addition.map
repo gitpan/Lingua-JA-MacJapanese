@@ -1,8 +1,8 @@
 #This .map file derived from the following table:
 #
 # http://www.unicode.org/Public/MAPPINGS/VENDORS/APPLE/CORPCHAR.TXT
-# Registry (external version) of Apple use of Unicode corporate-zone characters
-# version: b4,c1 2002-Dec-19
+# Registry (external version) of Apple use of Unicode corporate-zone
+# characters (version: c03 2005-Apr-04)
 #
 0x8591	0xF8A1
 0x85AB	0xF8A2
