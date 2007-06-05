@@ -8,7 +8,7 @@ use vars qw($VERSION @ISA @EXPORT @EXPORT_OK %EXPORT_TAGS);
 require Exporter;
 require DynaLoader;
 
-$VERSION = '0.03';
+$VERSION = '0.04';
 @ISA = qw(Exporter DynaLoader);
 @EXPORT = qw(decodeMacJapanese encodeMacJapanese);
 @EXPORT_OK = qw(decode encode);
@@ -142,7 +142,7 @@ Please let him know if you find something wrong.
 
 SADAHIRO Tomoyuki <SADAHIRO@cpan.org>
 
-Copyright(C) 2003-2005, SADAHIRO Tomoyuki. Japan. All rights reserved.
+Copyright(C) 2003-2007, SADAHIRO Tomoyuki. Japan. All rights reserved.
 
 This module is free software; you can redistribute it and/or
 modify it under the same terms as Perl itself.

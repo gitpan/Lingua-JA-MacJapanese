@@ -31,7 +31,14 @@ sub qstring {
 }
 
 sub split_into_char {
-    return unpack 'C*', pack('U*', @_);
+    use bytes;
+    my $uni = pack('U*', @_);
+    my $len = length($uni);
+    my @ary;
+    for(my $i = 0; $i < $len; ++$i) {
+	push @ary, ord(substr($uni,$i,1));
+    }
+    return @ary;
 }
 
 ###################
